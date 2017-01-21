@@ -16,6 +16,8 @@
 		D001FF3A1E3247540023DF29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D001FF381E3247540023DF29 /* LaunchScreen.storyboard */; };
 		D001FF451E3247540023DF29 /* London_Underground_Tube_StatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF441E3247540023DF29 /* London_Underground_Tube_StatusTests.m */; };
 		D001FF501E3247540023DF29 /* London_Underground_Tube_StatusUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF4F1E3247540023DF29 /* London_Underground_Tube_StatusUITests.m */; };
+		D001FF5F1E324F160023DF29 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF5E1E324F160023DF29 /* StatusViewController.m */; };
+		D001FF621E3406CA0023DF29 /* StatusFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF611E3406CA0023DF29 /* StatusFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,10 @@
 		D001FF4B1E3247540023DF29 /* London Underground Tube StatusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "London Underground Tube StatusUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D001FF4F1E3247540023DF29 /* London_Underground_Tube_StatusUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = London_Underground_Tube_StatusUITests.m; sourceTree = "<group>"; };
 		D001FF511E3247540023DF29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D001FF5D1E324EFF0023DF29 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
+		D001FF5E1E324F160023DF29 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
+		D001FF601E3406B10023DF29 /* StatusFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusFetcher.h; sourceTree = "<group>"; };
+		D001FF611E3406CA0023DF29 /* StatusFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusFetcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +114,12 @@
 				D001FF2B1E3247540023DF29 /* AppDelegate.m */,
 				D001FF2D1E3247540023DF29 /* FirstViewController.h */,
 				D001FF2E1E3247540023DF29 /* FirstViewController.m */,
+				D001FF601E3406B10023DF29 /* StatusFetcher.h */,
+				D001FF611E3406CA0023DF29 /* StatusFetcher.m */,
 				D001FF301E3247540023DF29 /* SecondViewController.h */,
 				D001FF311E3247540023DF29 /* SecondViewController.m */,
+				D001FF5D1E324EFF0023DF29 /* StatusViewController.h */,
+				D001FF5E1E324F160023DF29 /* StatusViewController.m */,
 				D001FF331E3247540023DF29 /* Main.storyboard */,
 				D001FF361E3247540023DF29 /* Assets.xcassets */,
 				D001FF381E3247540023DF29 /* LaunchScreen.storyboard */,
@@ -282,9 +292,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D001FF321E3247540023DF29 /* SecondViewController.m in Sources */,
+				D001FF621E3406CA0023DF29 /* StatusFetcher.m in Sources */,
 				D001FF2C1E3247540023DF29 /* AppDelegate.m in Sources */,
 				D001FF2F1E3247540023DF29 /* FirstViewController.m in Sources */,
 				D001FF291E3247540023DF29 /* main.m in Sources */,
+				D001FF5F1E324F160023DF29 /* StatusViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +447,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B6C84G57E3;
 				INFOPLIST_FILE = "London Underground Tube Status/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-Status";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -447,6 +460,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = B6C84G57E3;
 				INFOPLIST_FILE = "London Underground Tube Status/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-Status";
 				PRODUCT_NAME = "$(TARGET_NAME)";
