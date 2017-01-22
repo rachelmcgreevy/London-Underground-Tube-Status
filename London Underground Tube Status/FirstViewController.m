@@ -85,10 +85,16 @@
     for (int i=0; i<14; i++){
         UIView *gridCell = [[UIView alloc] initWithFrame:CGRectMake(((i%3)*_screenWidth/3),(floor(i/3)*_screenHeight)/5.7, _screenWidth/3, _screenHeight/5.7)];
         
+        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragCell:)];
+        [panRecognizer setMinimumNumberOfTouches:1];
+        [panRecognizer setMaximumNumberOfTouches:1];
+        [gridCell addGestureRecognizer:panRecognizer];
+        
         NSString *tubeName = [_tubeStatus[i] objectForKey:@"name"];
         gridCell.backgroundColor=[_tubeColours objectForKey:tubeName];
         
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, gridCell.frame.size.width, 20)];
+        nameLabel.tag = 3;
         nameLabel.adjustsFontSizeToFitWidth = YES;
         [nameLabel setFont:[UIFont systemFontOfSize:14]];
         nameLabel.textColor = [UIColor whiteColor];
@@ -96,23 +102,69 @@
         nameLabel.textAlignment = NSTextAlignmentCenter;
         [gridCell addSubview:nameLabel];
         
-        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, gridCell.frame.size.width, gridCell.frame.size.height-30)];
+        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, gridCell.frame.size.width,20)];
         statusLabel.adjustsFontSizeToFitWidth = YES;
+        statusLabel.tag = 4;
         [statusLabel setFont:[UIFont systemFontOfSize:14]];
         statusLabel.textColor = [UIColor whiteColor];
         statusLabel.text = [[_tubeStatus[i] objectForKey:@"lineStatuses"][0] objectForKey:@"statusSeverityDescription"];
         statusLabel.textAlignment = NSTextAlignmentCenter;
         [gridCell addSubview:statusLabel];
         
+        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,80)];
+        descriptionLabel.tag = 5;
+        descriptionLabel.numberOfLines = 0;
+        [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
+        descriptionLabel.textColor = [UIColor whiteColor];
+        descriptionLabel.text = [[_tubeStatus[i] objectForKey:@"lineStatuses"][0] objectForKey:@"reason"];
+        descriptionLabel.textAlignment = NSTextAlignmentCenter;
+        descriptionLabel.hidden = YES;
+        [gridCell addSubview:descriptionLabel];
+        
+        
         gridCell.tag = i +32;
         [gridCell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
         [_gridView addSubview:gridCell];
     }
 }
+- (void)dragCell:(id)sender {
+    [_gridView bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
+    UIView *senderView = [(UIPanGestureRecognizer*)sender view];
+    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:self.view];
+    
+    
+    senderView.center = CGPointMake(senderView.center.x + translatedPoint.x, senderView.center.y + translatedPoint.y);
+    
+    for (UIView *gridCell in [_gridView subviews]){
+        if (gridCell != senderView){
+            if(CGRectContainsPoint(gridCell.frame, senderView.center)) {
+                CGPoint currentCellCenter = gridCell.center;
+                
+                [UIView transitionWithView:gridCell duration:.5 options: UIViewAnimationOptionTransitionNone animations:^{ gridCell.center = CGPointMake(currentCellCenter.x + _screenWidth/3 , currentCellCenter.y);} completion:NULL];
+            }
+        }
+    }
+    [sender setTranslation:CGPointMake(0, 0) inView:self.view];
+    
+    /*
+    if ([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
+        
+        CGFloat finalX = ;
+        CGFloat finalY = ;
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:.2];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(animationDidFinish)];
+        [[sender view] setCenter:CGPointMake(finalX, finalY)];
+        [UIView commitAnimations];
+    } */
+}
 
 - (void)segmentedControlAction:(id)sender {
-    
+    //fetch weekend tube status and update labels
 }
+
 - (void)clickedOnCellView:(id)sender {
     UIView *cellView = [_gridView viewWithTag:[(UIGestureRecognizer *)sender view].tag];
     [_gridView bringSubviewToFront:cellView];
@@ -121,9 +173,26 @@
         if (cellView.frame.size.width != _screenWidth){
             cellView.frame = CGRectMake(0,_gridView.contentOffset.y, _screenWidth, _screenHeight);
             _gridView.scrollEnabled = NO;
+            
+            UILabel *nameLabel = [cellView viewWithTag:3];
+            nameLabel.center = CGPointMake(cellView.frame.size.width/2, 30);
+            UILabel *statusLabel = [cellView viewWithTag:4];
+            statusLabel.center = CGPointMake(cellView.frame.size.width/2, 80);
+            
+            UILabel *descriptionLabel = [cellView viewWithTag:5];
+            descriptionLabel.hidden = NO;
+            
         } else {
             cellView.frame = CGRectMake(((i%3)*_screenWidth/3),(floor(i/3)*_screenHeight)/5.7, _screenWidth/3, _screenHeight/5.7);
             _gridView.scrollEnabled = YES;
+            
+            UILabel *nameLabel = [cellView viewWithTag:3];
+            nameLabel.center = CGPointMake(cellView.frame.size.width/2, 30);
+            UILabel *statusLabel = [cellView viewWithTag:4];
+            statusLabel.center = CGPointMake(cellView.frame.size.width/2, 70);
+            UILabel *descriptionLabel = [cellView viewWithTag:5];
+            descriptionLabel.hidden = YES;
+            
         }
     } completion:NULL];
 }

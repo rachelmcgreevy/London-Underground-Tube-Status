@@ -473,6 +473,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = B6C84G57E3;
 				INFOPLIST_FILE = "London Underground Tube StatusTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-StatusTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -486,6 +487,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = B6C84G57E3;
 				INFOPLIST_FILE = "London Underground Tube StatusTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-StatusTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -498,6 +500,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = B6C84G57E3;
 				INFOPLIST_FILE = "London Underground Tube StatusUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-StatusUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -510,6 +513,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = B6C84G57E3;
 				INFOPLIST_FILE = "London Underground Tube StatusUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-StatusUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -536,6 +540,7 @@
 				D001FF561E3247540023DF29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D001FF571E3247540023DF29 /* Build configuration list for PBXNativeTarget "London Underground Tube StatusTests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +549,7 @@
 				D001FF591E3247540023DF29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D001FF5A1E3247540023DF29 /* Build configuration list for PBXNativeTarget "London Underground Tube StatusUITests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +558,7 @@
 				D001FF5C1E3247540023DF29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

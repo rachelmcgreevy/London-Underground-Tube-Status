@@ -18,6 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    UIView *vc = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
+    vc.backgroundColor = [UIColor whiteColor];
+    self.view = vc;
 }
 
 
