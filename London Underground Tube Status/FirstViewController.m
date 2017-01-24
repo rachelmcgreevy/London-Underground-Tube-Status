@@ -15,7 +15,8 @@
 @property CGFloat screenHeight;
 @property CGPoint cellOrigin;
 @property (strong, nonatomic) NSMutableDictionary *tubeColours;
-@property (strong, nonatomic) UIScrollView *gridView;
+//@property (strong, nonatomic) UIScrollView *gridView;
+@property (strong, nonatomic) UICollectionView *gridView;
 @property (strong, nonatomic) NSMutableArray *tubeStatus;
 
 @end
@@ -78,6 +79,24 @@
 }
 
 - (void)setUpGrid {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumLineSpacing = 0;
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout.itemSize = CGSizeMake(_screenWidth/3, _screenHeight/5.7);
+    layout.sectionInset = UIEdgeInsetsZero;
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    _gridView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 60, _screenWidth, _screenHeight-60) collectionViewLayout:layout];
+    [_gridView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    _gridView.dataSource = self;
+    _gridView.delegate = self;
+    _gridView.backgroundColor = [UIColor whiteColor];
+    [_gridView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]];
+    [self.view addSubview:_gridView];
+    
+    /*
     _gridView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, _screenWidth, _screenHeight-60)];
     _gridView.backgroundColor = [UIColor whiteColor];
     _gridView.contentSize = CGSizeMake(_screenWidth, _screenHeight *1.2);
@@ -125,8 +144,84 @@
         gridCell.tag = i +32;
         [gridCell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
         [_gridView addSubview:gridCell];
+    } */
+}
+
+- (void)segmentedControlAction:(id)sender {
+    //fetch weekend tube status and update labels
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 14;
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    
+    //add your data source manipulation logic here
+    //specifically, change the order of entries in the data source to match the new visual order of the cells.
+    //even without anything inside this function, the cells will move visually if you build and run
+    
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    
+    NSString *tubeName = [_tubeStatus[indexPath.row] objectForKey:@"name"];
+    cell.backgroundColor=[_tubeColours objectForKey:tubeName];
+    
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, cell.frame.size.width, 20)];
+    nameLabel.tag = 3;
+    nameLabel.adjustsFontSizeToFitWidth = YES;
+    [nameLabel setFont:[UIFont systemFontOfSize:14]];
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.text = tubeName;
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    [cell addSubview:nameLabel];
+    
+    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, cell.frame.size.width,20)];
+    statusLabel.adjustsFontSizeToFitWidth = YES;
+    statusLabel.tag = 4;
+    [statusLabel setFont:[UIFont systemFontOfSize:14]];
+    statusLabel.textColor = [UIColor whiteColor];
+    statusLabel.text = [[_tubeStatus[indexPath.row] objectForKey:@"lineStatuses"][0] objectForKey:@"statusSeverityDescription"];
+    statusLabel.textAlignment = NSTextAlignmentCenter;
+    [cell addSubview:statusLabel];
+
+    return cell;
+}
+
+-(void)handleGesture:(UILongPressGestureRecognizer*)gesture{
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:{
+            NSIndexPath *indexPath=[_gridView indexPathForItemAtPoint:[gesture locationInView:_gridView]];
+            if(indexPath!=nil)
+                [_gridView beginInteractiveMovementForItemAtIndexPath:indexPath];
+            break;
+        }
+        case UIGestureRecognizerStateChanged:{
+            [_gridView updateInteractiveMovementTargetPosition:[gesture locationInView:_gridView]];
+            break;
+        }
+        case UIGestureRecognizerStateEnded:{
+            [_gridView endInteractiveMovement];
+            break;
+        }
+            
+        default:
+            [_gridView cancelInteractiveMovement];
+            break;
     }
 }
+
+/*
 - (void)dragCell:(id)sender {
     [_gridView bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
     UIView *senderView = [(UIPanGestureRecognizer*)sender view];
@@ -146,7 +241,7 @@
     }
     [sender setTranslation:CGPointMake(0, 0) inView:self.view];
     
-    /*
+ 
     if ([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
         
         CGFloat finalX = ;
@@ -158,12 +253,10 @@
         [UIView setAnimationDidStopSelector:@selector(animationDidFinish)];
         [[sender view] setCenter:CGPointMake(finalX, finalY)];
         [UIView commitAnimations];
-    } */
+    }
 }
 
-- (void)segmentedControlAction:(id)sender {
-    //fetch weekend tube status and update labels
-}
+
 
 - (void)clickedOnCellView:(id)sender {
     UIView *cellView = [_gridView viewWithTag:[(UIGestureRecognizer *)sender view].tag];
@@ -196,5 +289,5 @@
         }
     } completion:NULL];
 }
-
+*/
 @end
