@@ -18,6 +18,8 @@
 //@property (strong, nonatomic) UIScrollView *gridView;
 @property (strong, nonatomic) UICollectionView *gridView;
 @property (strong, nonatomic) NSMutableArray *tubeStatus;
+@property BOOL isExpanded;
+@property (strong, nonatomic) NSIndexPath *expandedCellIndexPath;
 
 @end
 
@@ -164,9 +166,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
     
-    //add your data source manipulation logic here
-    //specifically, change the order of entries in the data source to match the new visual order of the cells.
-    //even without anything inside this function, the cells will move visually if you build and run
+    //change the order of entries in the data source to match the new visual order of the cells.
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -195,7 +195,20 @@
     statusLabel.textAlignment = NSTextAlignmentCenter;
     [cell addSubview:statusLabel];
 
+    [cell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
+    
+    //[cell layoutIfNeeded];
+
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (_isExpanded && indexPath.row == _expandedCellIndexPath.row) {
+        return CGSizeMake(_screenWidth, _screenHeight);
+    } else {
+        return CGSizeMake(_screenWidth/3, _screenHeight/5.7);
+    }
 }
 
 -(void)handleGesture:(UILongPressGestureRecognizer*)gesture{
@@ -220,6 +233,20 @@
             break;
     }
 }
+
+- (void)clickedOnCellView:(id)sender {
+    UICollectionViewCell *senderView = (UICollectionViewCell *)[(UITapGestureRecognizer *)sender view];
+    _expandedCellIndexPath = [_gridView indexPathForCell:senderView];
+    if (_isExpanded) {
+        _isExpanded = FALSE;
+        [_gridView reloadItemsAtIndexPaths:@[_expandedCellIndexPath]];
+    }
+    else {
+        _isExpanded = TRUE;
+        [_gridView reloadItemsAtIndexPaths:@[_expandedCellIndexPath]];
+    }
+}
+
 
 /*
 - (void)dragCell:(id)sender {
