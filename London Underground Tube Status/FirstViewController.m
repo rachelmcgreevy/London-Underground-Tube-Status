@@ -174,7 +174,7 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
     
-    NSString *tubeName = [_tubeStatus[indexPath.row] objectForKey:@"name"];
+    NSString *tubeName = _tubeStatus[indexPath.row][0];
     cell.backgroundColor=[_tubeColours objectForKey:tubeName];
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, cell.frame.size.width, 20)];
@@ -191,24 +191,24 @@
     statusLabel.tag = 4;
     [statusLabel setFont:[UIFont systemFontOfSize:14]];
     statusLabel.textColor = [UIColor whiteColor];
-    statusLabel.text = [[_tubeStatus[indexPath.row] objectForKey:@"lineStatuses"][0] objectForKey:@"statusSeverityDescription"];
+    statusLabel.text = _tubeStatus[indexPath.row][1];
     statusLabel.textAlignment = NSTextAlignmentCenter;
     [cell addSubview:statusLabel];
+    
+    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,80)];
+    descriptionLabel.tag = 5;
+    descriptionLabel.numberOfLines = 0;
+    [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
+    descriptionLabel.textColor = [UIColor whiteColor];
+    descriptionLabel.text = _tubeStatus[indexPath.row][2];
+    descriptionLabel.textAlignment = NSTextAlignmentCenter;
+    descriptionLabel.hidden = YES;
+    [cell addSubview:descriptionLabel];
+
 
     [cell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
-    
-    //[cell layoutIfNeeded];
 
     return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (_isExpanded && indexPath.row == _expandedCellIndexPath.row) {
-        return CGSizeMake(_screenWidth, _screenHeight);
-    } else {
-        return CGSizeMake(_screenWidth/3, _screenHeight/5.7);
-    }
 }
 
 -(void)handleGesture:(UILongPressGestureRecognizer*)gesture{
@@ -237,14 +237,34 @@
 - (void)clickedOnCellView:(id)sender {
     UICollectionViewCell *senderView = (UICollectionViewCell *)[(UITapGestureRecognizer *)sender view];
     _expandedCellIndexPath = [_gridView indexPathForCell:senderView];
-    if (_isExpanded) {
-        _isExpanded = FALSE;
-        [_gridView reloadItemsAtIndexPaths:@[_expandedCellIndexPath]];
-    }
-    else {
-        _isExpanded = TRUE;
-        [_gridView reloadItemsAtIndexPaths:@[_expandedCellIndexPath]];
-    }
+    
+    UIView *expandedView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, _screenWidth, _screenHeight)];
+    expandedView.backgroundColor = senderView.backgroundColor;
+    
+    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:3]]];
+    
+    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:4]]];
+    
+    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:5]]];
+    
+    [self.view addSubview:expandedView];
+    [expandedView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnExpandedView:)]];
+}
+
+- (void)clickedOnExpandedView:(id)sender {
+    UIView *senderView = [(UITapGestureRecognizer *)sender view];
+    [senderView removeFromSuperview];
+}
+
+-(UILabel *)copyLabel:(UILabel *)oldLabel {
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x, oldLabel.frame.origin.y, _screenWidth, oldLabel.frame.size.height)];
+    newLabel.font = oldLabel.font;
+    newLabel.text = oldLabel.text;
+    newLabel.numberOfLines = oldLabel.numberOfLines;
+    newLabel.textColor = oldLabel.textColor;
+    newLabel.textAlignment = oldLabel.textAlignment;
+    newLabel.hidden = NO;
+    return newLabel;
 }
 
 
