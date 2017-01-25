@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *tubeStatus;
 @property BOOL isExpanded;
 @property (strong, nonatomic) NSIndexPath *expandedCellIndexPath;
+@property (strong, nonatomic) StatusFetcher *statusFetcher;
 
 @end
 
@@ -35,8 +36,8 @@
     self.view = vc;
     
     [self assignTubeColours];
-    StatusFetcher *fetcher = [[StatusFetcher alloc] init];
-    _tubeStatus = [fetcher getLiveTubeStatus];
+    _statusFetcher = [[StatusFetcher alloc] init];
+    _tubeStatus = [_statusFetcher getLiveTubeStatus];
     [self setUpToolbar];
     [self setUpGrid];
 
@@ -64,6 +65,8 @@
     [_tubeColours setObject:[UIColor colorWithRed:239/255.f green:123/255.f blue:16/255.f alpha:1.f] forKey:@"London Overground"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:175/255.f blue:173/255.f alpha:1.f] forKey:@"DLR"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:189/255.f blue:25/255.f alpha:1.f] forKey:@"Tram"];
+    [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:25/255.f blue:168/255.f alpha:1.f] forKey:@"TfL Rail"];
+    [_tubeColours setObject:[UIColor colorWithRed:220/255.f green:36/255.f blue:31/255.f alpha:1.f] forKey:@"Emirates Air Line"];
 }
 
 - (void)setUpToolbar {
@@ -94,9 +97,20 @@
     [_gridView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     _gridView.dataSource = self;
     _gridView.delegate = self;
+    _gridView.bounces = YES;
+    _gridView.alwaysBounceVertical = YES;
     _gridView.backgroundColor = [UIColor whiteColor];
-    [_gridView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]];
+    [_gridView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)]];
     [self.view addSubview:_gridView];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.backgroundColor = [UIColor whiteColor];
+    refreshControl.tintColor = [UIColor blackColor];
+    [refreshControl addTarget:self
+                            action:@selector(updateTubeStatus)
+             forControlEvents:UIControlEventValueChanged];
+    
+    _gridView.refreshControl = refreshControl;
     
     /*
     _gridView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, _screenWidth, _screenHeight-60)];
@@ -151,13 +165,15 @@
 
 - (void)segmentedControlAction:(id)sender {
     //fetch weekend tube status and update labels
+    _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
+
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 14;
+    return 16;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -217,6 +233,7 @@
             NSIndexPath *indexPath=[_gridView indexPathForItemAtPoint:[gesture locationInView:_gridView]];
             if(indexPath!=nil)
                 [_gridView beginInteractiveMovementForItemAtIndexPath:indexPath];
+            [[_gridView cellForItemAtIndexPath:indexPath].layer addAnimation:[self getShakeAnimation] forKey:@""];
             break;
         }
         case UIGestureRecognizerStateChanged:{
@@ -224,7 +241,9 @@
             break;
         }
         case UIGestureRecognizerStateEnded:{
+            NSIndexPath *indexPath=[_gridView indexPathForItemAtPoint:[gesture locationInView:_gridView]];
             [_gridView endInteractiveMovement];
+            [[_gridView cellForItemAtIndexPath:indexPath].layer removeAllAnimations];
             break;
         }
             
@@ -267,6 +286,28 @@
     return newLabel;
 }
 
+- (CAAnimation*)getShakeAnimation
+{
+    CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    
+    CGFloat wobbleAngle = 0.06f;
+    
+    NSValue* valLeft = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(wobbleAngle, 0.0f, 0.0f, 1.0f)];
+    NSValue* valRight = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-wobbleAngle, 0.0f, 0.0f, 1.0f)];
+    animation.values = [NSArray arrayWithObjects:valLeft, valRight, nil];
+    
+    animation.autoreverses = YES;
+    animation.duration = 0.125;
+    animation.repeatCount = HUGE_VALF;
+    
+    return animation;
+}
+
+- (void)updateTubeStatus {
+    _tubeStatus  = [_statusFetcher getLiveTubeStatus];
+    //for each cell in grid, update labels.
+    [_gridView.refreshControl endRefreshing];
+}
 
 /*
 - (void)dragCell:(id)sender {

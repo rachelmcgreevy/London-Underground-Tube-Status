@@ -7,8 +7,9 @@
 //
 #import <UIKit/UIKit.h>
 
-@interface StatusFetcher : NSObject
+@interface StatusFetcher : NSObject <NSXMLParserDelegate>
 
 - (NSMutableArray *)getLiveTubeStatus;
+- (NSMutableArray *)getWeekendTubeStatus;
 
 @end
