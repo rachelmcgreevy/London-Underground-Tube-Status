@@ -163,17 +163,25 @@
     } */
 }
 
-- (void)segmentedControlAction:(id)sender {
-    //fetch weekend tube status and update labels
-    _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
+- (void)segmentedControlAction:(UISegmentedControl *)sender {
+    if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"Live"])
+    {
+        //fetch real time tube status
+        _tubeStatus  = [_statusFetcher getLiveTubeStatus];
 
+    } else {
+        //fetch weekend tube status
+    _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
+    }
+    //update labels in correct order
+    [_gridView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 16;
+    return _tubeStatus.count;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -181,10 +189,9 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    
     //change the order of entries in the data source to match the new visual order of the cells.
-    
 }
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
@@ -192,35 +199,49 @@
     
     NSString *tubeName = _tubeStatus[indexPath.row][0];
     cell.backgroundColor=[_tubeColours objectForKey:tubeName];
-    
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, cell.frame.size.width, 20)];
-    nameLabel.tag = 3;
-    nameLabel.adjustsFontSizeToFitWidth = YES;
-    [nameLabel setFont:[UIFont systemFontOfSize:14]];
-    nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.text = tubeName;
-    nameLabel.textAlignment = NSTextAlignmentCenter;
-    [cell addSubview:nameLabel];
-    
-    UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, cell.frame.size.width,20)];
-    statusLabel.adjustsFontSizeToFitWidth = YES;
-    statusLabel.tag = 4;
-    [statusLabel setFont:[UIFont systemFontOfSize:14]];
-    statusLabel.textColor = [UIColor whiteColor];
-    statusLabel.text = _tubeStatus[indexPath.row][1];
-    statusLabel.textAlignment = NSTextAlignmentCenter;
-    [cell addSubview:statusLabel];
-    
-    UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,80)];
-    descriptionLabel.tag = 5;
-    descriptionLabel.numberOfLines = 0;
-    [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
-    descriptionLabel.textColor = [UIColor whiteColor];
-    descriptionLabel.text = _tubeStatus[indexPath.row][2];
-    descriptionLabel.textAlignment = NSTextAlignmentCenter;
-    descriptionLabel.hidden = YES;
-    [cell addSubview:descriptionLabel];
 
+    if ([cell viewWithTag:3] != nil) {
+        UILabel *nameLabel = [cell viewWithTag:3];
+        nameLabel.text = tubeName;
+    } else {
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, cell.frame.size.width, 20)];
+        nameLabel.tag = 3;
+        nameLabel.adjustsFontSizeToFitWidth = YES;
+        [nameLabel setFont:[UIFont systemFontOfSize:14]];
+        nameLabel.textColor = [UIColor whiteColor];
+        nameLabel.text = tubeName;
+        nameLabel.textAlignment = NSTextAlignmentCenter;
+        [cell addSubview:nameLabel];
+    }
+    
+    if ([cell viewWithTag:4] != nil) {
+        UILabel *statusLabel = [cell viewWithTag:4];
+        statusLabel.text = _tubeStatus[indexPath.row][1];
+    } else {
+        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, cell.frame.size.width,20)];
+        statusLabel.adjustsFontSizeToFitWidth = YES;
+        statusLabel.tag = 4;
+        [statusLabel setFont:[UIFont systemFontOfSize:14]];
+        statusLabel.textColor = [UIColor whiteColor];
+        statusLabel.text = _tubeStatus[indexPath.row][1];
+        statusLabel.textAlignment = NSTextAlignmentCenter;
+        [cell addSubview:statusLabel];
+    }
+    
+    if ([cell viewWithTag:5] != nil) {
+        UILabel *descriptionLabel = [cell viewWithTag:5];
+        descriptionLabel.text = _tubeStatus[indexPath.row][2];
+    } else {
+        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,80)];
+        descriptionLabel.tag = 5;
+        descriptionLabel.numberOfLines = 0;
+        [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
+        descriptionLabel.textColor = [UIColor whiteColor];
+        descriptionLabel.text = _tubeStatus[indexPath.row][2];
+        descriptionLabel.textAlignment = NSTextAlignmentCenter;
+        descriptionLabel.hidden = YES;
+        [cell addSubview:descriptionLabel];
+    }
 
     [cell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
 
@@ -305,77 +326,9 @@
 
 - (void)updateTubeStatus {
     _tubeStatus  = [_statusFetcher getLiveTubeStatus];
+    [_gridView reloadData];
     //for each cell in grid, update labels.
     [_gridView.refreshControl endRefreshing];
 }
 
-/*
-- (void)dragCell:(id)sender {
-    [_gridView bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
-    UIView *senderView = [(UIPanGestureRecognizer*)sender view];
-    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:self.view];
-    
-    
-    senderView.center = CGPointMake(senderView.center.x + translatedPoint.x, senderView.center.y + translatedPoint.y);
-    
-    for (UIView *gridCell in [_gridView subviews]){
-        if (gridCell != senderView){
-            if(CGRectContainsPoint(gridCell.frame, senderView.center)) {
-                CGPoint currentCellCenter = gridCell.center;
-                
-                [UIView transitionWithView:gridCell duration:.5 options: UIViewAnimationOptionTransitionNone animations:^{ gridCell.center = CGPointMake(currentCellCenter.x + _screenWidth/3 , currentCellCenter.y);} completion:NULL];
-            }
-        }
-    }
-    [sender setTranslation:CGPointMake(0, 0) inView:self.view];
-    
- 
-    if ([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
-        
-        CGFloat finalX = ;
-        CGFloat finalY = ;
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:.2];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(animationDidFinish)];
-        [[sender view] setCenter:CGPointMake(finalX, finalY)];
-        [UIView commitAnimations];
-    }
-}
-
-
-
-- (void)clickedOnCellView:(id)sender {
-    UIView *cellView = [_gridView viewWithTag:[(UIGestureRecognizer *)sender view].tag];
-    [_gridView bringSubviewToFront:cellView];
-    [UIView transitionWithView:cellView duration:.5 options:UIViewAnimationOptionTransitionNone animations:^{
-        int i = cellView.tag - 32;
-        if (cellView.frame.size.width != _screenWidth){
-            cellView.frame = CGRectMake(0,_gridView.contentOffset.y, _screenWidth, _screenHeight);
-            _gridView.scrollEnabled = NO;
-            
-            UILabel *nameLabel = [cellView viewWithTag:3];
-            nameLabel.center = CGPointMake(cellView.frame.size.width/2, 30);
-            UILabel *statusLabel = [cellView viewWithTag:4];
-            statusLabel.center = CGPointMake(cellView.frame.size.width/2, 80);
-            
-            UILabel *descriptionLabel = [cellView viewWithTag:5];
-            descriptionLabel.hidden = NO;
-            
-        } else {
-            cellView.frame = CGRectMake(((i%3)*_screenWidth/3),(floor(i/3)*_screenHeight)/5.7, _screenWidth/3, _screenHeight/5.7);
-            _gridView.scrollEnabled = YES;
-            
-            UILabel *nameLabel = [cellView viewWithTag:3];
-            nameLabel.center = CGPointMake(cellView.frame.size.width/2, 30);
-            UILabel *statusLabel = [cellView viewWithTag:4];
-            statusLabel.center = CGPointMake(cellView.frame.size.width/2, 70);
-            UILabel *descriptionLabel = [cellView viewWithTag:5];
-            descriptionLabel.hidden = YES;
-            
-        }
-    } completion:NULL];
-}
-*/
 @end
