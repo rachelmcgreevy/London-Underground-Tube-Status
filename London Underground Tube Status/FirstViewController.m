@@ -21,6 +21,7 @@
 @property BOOL isExpanded;
 @property (strong, nonatomic) NSIndexPath *expandedCellIndexPath;
 @property (strong, nonatomic) StatusFetcher *statusFetcher;
+@property (strong, nonatomic) NSString *currentState;
 
 @end
 
@@ -38,6 +39,7 @@
     [self assignTubeColours];
     _statusFetcher = [[StatusFetcher alloc] init];
     _tubeStatus = [_statusFetcher getLiveTubeStatus];
+    _currentState = @"Live";
     [self setUpToolbar];
     [self setUpGrid];
 
@@ -166,10 +168,12 @@
 - (void)segmentedControlAction:(UISegmentedControl *)sender {
     if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"Live"])
     {
+        _currentState = @"Live";
         //fetch real time tube status
         _tubeStatus  = [_statusFetcher getLiveTubeStatus];
 
     } else {
+        _currentState = @"Weekend";
         //fetch weekend tube status
     _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
     }
@@ -232,7 +236,7 @@
         UILabel *descriptionLabel = [cell viewWithTag:5];
         descriptionLabel.text = _tubeStatus[indexPath.row][2];
     } else {
-        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,80)];
+        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,150)];
         descriptionLabel.tag = 5;
         descriptionLabel.numberOfLines = 0;
         [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
@@ -297,7 +301,7 @@
 }
 
 -(UILabel *)copyLabel:(UILabel *)oldLabel {
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x, oldLabel.frame.origin.y, _screenWidth, oldLabel.frame.size.height)];
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x+10, oldLabel.frame.origin.y, _screenWidth-20, oldLabel.frame.size.height)];
     newLabel.font = oldLabel.font;
     newLabel.text = oldLabel.text;
     newLabel.numberOfLines = oldLabel.numberOfLines;
@@ -325,7 +329,11 @@
 }
 
 - (void)updateTubeStatus {
-    _tubeStatus  = [_statusFetcher getLiveTubeStatus];
+    if ([_currentState isEqualToString:@"Live"]) {
+        _tubeStatus  = [_statusFetcher getLiveTubeStatus];
+    } else {
+        _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
+    }
     [_gridView reloadData];
     //for each cell in grid, update labels.
     [_gridView.refreshControl endRefreshing];
