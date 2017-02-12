@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		88CC556F1E50FF330046E155 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CC556E1E50FF330046E155 /* SettingsViewController.m */; };
+		88CC55711E5101710046E155 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 88CC55701E5101710046E155 /* Graphics */; };
 		D001FF291E3247540023DF29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF281E3247540023DF29 /* main.m */; };
 		D001FF2C1E3247540023DF29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF2B1E3247540023DF29 /* AppDelegate.m */; };
 		D001FF2F1E3247540023DF29 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF2E1E3247540023DF29 /* FirstViewController.m */; };
@@ -16,7 +18,6 @@
 		D001FF3A1E3247540023DF29 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D001FF381E3247540023DF29 /* LaunchScreen.storyboard */; };
 		D001FF451E3247540023DF29 /* London_Underground_Tube_StatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF441E3247540023DF29 /* London_Underground_Tube_StatusTests.m */; };
 		D001FF501E3247540023DF29 /* London_Underground_Tube_StatusUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF4F1E3247540023DF29 /* London_Underground_Tube_StatusUITests.m */; };
-		D001FF5F1E324F160023DF29 /* StatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF5E1E324F160023DF29 /* StatusViewController.m */; };
 		D001FF621E3406CA0023DF29 /* StatusFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF611E3406CA0023DF29 /* StatusFetcher.m */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		88CC556D1E50FF0F0046E155 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		88CC556E1E50FF330046E155 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		88CC55701E5101710046E155 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
 		D001FF241E3247540023DF29 /* London Underground Tube Status.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "London Underground Tube Status.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D001FF281E3247540023DF29 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D001FF2A1E3247540023DF29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -56,8 +60,6 @@
 		D001FF4B1E3247540023DF29 /* London Underground Tube StatusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "London Underground Tube StatusUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D001FF4F1E3247540023DF29 /* London_Underground_Tube_StatusUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = London_Underground_Tube_StatusUITests.m; sourceTree = "<group>"; };
 		D001FF511E3247540023DF29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D001FF5D1E324EFF0023DF29 /* StatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusViewController.h; sourceTree = "<group>"; };
-		D001FF5E1E324F160023DF29 /* StatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusViewController.m; sourceTree = "<group>"; };
 		D001FF601E3406B10023DF29 /* StatusFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusFetcher.h; sourceTree = "<group>"; };
 		D001FF611E3406CA0023DF29 /* StatusFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusFetcher.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,10 +120,11 @@
 				D001FF611E3406CA0023DF29 /* StatusFetcher.m */,
 				D001FF301E3247540023DF29 /* SecondViewController.h */,
 				D001FF311E3247540023DF29 /* SecondViewController.m */,
-				D001FF5D1E324EFF0023DF29 /* StatusViewController.h */,
-				D001FF5E1E324F160023DF29 /* StatusViewController.m */,
+				88CC556D1E50FF0F0046E155 /* SettingsViewController.h */,
+				88CC556E1E50FF330046E155 /* SettingsViewController.m */,
 				D001FF331E3247540023DF29 /* Main.storyboard */,
 				D001FF361E3247540023DF29 /* Assets.xcassets */,
+				88CC55701E5101710046E155 /* Graphics */,
 				D001FF381E3247540023DF29 /* LaunchScreen.storyboard */,
 				D001FF3B1E3247540023DF29 /* Info.plist */,
 				D001FF271E3247540023DF29 /* Supporting Files */,
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D001FF3A1E3247540023DF29 /* LaunchScreen.storyboard in Resources */,
+				88CC55711E5101710046E155 /* Graphics in Resources */,
 				D001FF371E3247540023DF29 /* Assets.xcassets in Resources */,
 				D001FF351E3247540023DF29 /* Main.storyboard in Resources */,
 			);
@@ -296,7 +300,7 @@
 				D001FF2C1E3247540023DF29 /* AppDelegate.m in Sources */,
 				D001FF2F1E3247540023DF29 /* FirstViewController.m in Sources */,
 				D001FF291E3247540023DF29 /* main.m in Sources */,
-				D001FF5F1E324F160023DF29 /* StatusViewController.m in Sources */,
+				88CC556F1E50FF330046E155 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

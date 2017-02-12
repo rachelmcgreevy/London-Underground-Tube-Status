@@ -46,46 +46,6 @@
 
 }
 
-- (void)getTubeStatus:(NSMutableArray *)tubeStatusData {
-    if (_tubeStatus == nil) {
-        _tubeStatus = tubeStatusData;
-    } else {
-        for (int i = 0; i < _tubeStatus.count; i++) {
-            NSString *lineName = _tubeStatus[i][0];
-            for (int j = 0; j < tubeStatusData.count; j++){
-                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
-                    _tubeStatus[i][1] = tubeStatusData[j][1];
-                    _tubeStatus[i][2] = tubeStatusData[j][2];
-                    break;
-                }
-            }
-        }
-    }
-}
-
-- (void)getWeekendTubeStatus:(NSMutableArray *)tubeStatusData {
-    if (_tubeStatus == nil) {
-        _tubeStatus = tubeStatusData;
-    } else {
-        for (int i = 0; i < _tubeStatus.count; i++) {
-            BOOL lineFound = NO;
-            NSString *lineName = _tubeStatus[i][0];
-            for (int j = 0; j < tubeStatusData.count; j++){
-                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
-                    lineFound = YES;
-                    _tubeStatus[i][1] = tubeStatusData[j][1];
-                    _tubeStatus[i][2] = tubeStatusData[j][2];
-                    break;
-                }
-            }
-            if (lineFound == NO) {
-                _tubeStatus[i][1] = @"";
-                _tubeStatus[i][2] = @"";
-            }
-        }
-    }
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -335,5 +295,48 @@
     //for each cell in grid, update labels.
     [_gridView.refreshControl endRefreshing];
 }
+
+#pragma get tube status information in correct order
+
+- (void)getTubeStatus:(NSMutableArray *)tubeStatusData {
+    if (_tubeStatus == nil) {
+        _tubeStatus = tubeStatusData;
+    } else {
+        for (int i = 0; i < _tubeStatus.count; i++) {
+            NSString *lineName = _tubeStatus[i][0];
+            for (int j = 0; j < tubeStatusData.count; j++){
+                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
+                    _tubeStatus[i][1] = tubeStatusData[j][1];
+                    _tubeStatus[i][2] = tubeStatusData[j][2];
+                    break;
+                }
+            }
+        }
+    }
+}
+
+- (void)getWeekendTubeStatus:(NSMutableArray *)tubeStatusData {
+    if (_tubeStatus == nil) {
+        _tubeStatus = tubeStatusData;
+    } else {
+        for (int i = 0; i < _tubeStatus.count; i++) {
+            BOOL lineFound = NO;
+            NSString *lineName = _tubeStatus[i][0];
+            for (int j = 0; j < tubeStatusData.count; j++){
+                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
+                    lineFound = YES;
+                    _tubeStatus[i][1] = tubeStatusData[j][1];
+                    _tubeStatus[i][2] = tubeStatusData[j][2];
+                    break;
+                }
+            }
+            if (lineFound == NO) {
+                _tubeStatus[i][1] = @"";
+                _tubeStatus[i][2] = @"";
+            }
+        }
+    }
+}
+
 
 @end

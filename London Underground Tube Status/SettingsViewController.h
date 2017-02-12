@@ -1,15 +1,14 @@
 //
-//  StatusViewController.h
+//  SettingsViewController.h
 //  London Underground Tube Status
 //
-//  Created by Rachel McGreevy on 20/01/2017.
+//  Created by Rachel McGreevy on 12/02/2017.
 //  Copyright © 2017 Rachel McGreevy. All rights reserved.
 //
 
-
 #import <UIKit/UIKit.h>
 
-@interface StatusViewController : UIViewController
+@interface SettingsViewController : UIViewController
 
 
 @end
