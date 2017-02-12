@@ -98,7 +98,7 @@
         [self.currentElement isEqualToString:@"Text"]) {
         
         if (![string isEqualToString:@" "]) {
-            [self.foundValue setString:string];
+            [self.foundValue appendString:string];
         }
     }
 }

@@ -114,56 +114,7 @@
     
     _gridView.refreshControl = refreshControl;
     
-    /*
-    _gridView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 60, _screenWidth, _screenHeight-60)];
-    _gridView.backgroundColor = [UIColor whiteColor];
-    _gridView.contentSize = CGSizeMake(_screenWidth, _screenHeight *1.2);
-    [self.view addSubview:_gridView];
-    for (int i=0; i<14; i++){
-        UIView *gridCell = [[UIView alloc] initWithFrame:CGRectMake(((i%3)*_screenWidth/3),(floor(i/3)*_screenHeight)/5.7, _screenWidth/3, _screenHeight/5.7)];
-        
-        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragCell:)];
-        [panRecognizer setMinimumNumberOfTouches:1];
-        [panRecognizer setMaximumNumberOfTouches:1];
-        [gridCell addGestureRecognizer:panRecognizer];
-        
-        NSString *tubeName = [_tubeStatus[i] objectForKey:@"name"];
-        gridCell.backgroundColor=[_tubeColours objectForKey:tubeName];
-        
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, gridCell.frame.size.width, 20)];
-        nameLabel.tag = 3;
-        nameLabel.adjustsFontSizeToFitWidth = YES;
-        [nameLabel setFont:[UIFont systemFontOfSize:14]];
-        nameLabel.textColor = [UIColor whiteColor];
-        nameLabel.text = tubeName;
-        nameLabel.textAlignment = NSTextAlignmentCenter;
-        [gridCell addSubview:nameLabel];
-        
-        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, gridCell.frame.size.width,20)];
-        statusLabel.adjustsFontSizeToFitWidth = YES;
-        statusLabel.tag = 4;
-        [statusLabel setFont:[UIFont systemFontOfSize:14]];
-        statusLabel.textColor = [UIColor whiteColor];
-        statusLabel.text = [[_tubeStatus[i] objectForKey:@"lineStatuses"][0] objectForKey:@"statusSeverityDescription"];
-        statusLabel.textAlignment = NSTextAlignmentCenter;
-        [gridCell addSubview:statusLabel];
-        
-        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,80)];
-        descriptionLabel.tag = 5;
-        descriptionLabel.numberOfLines = 0;
-        [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
-        descriptionLabel.textColor = [UIColor whiteColor];
-        descriptionLabel.text = [[_tubeStatus[i] objectForKey:@"lineStatuses"][0] objectForKey:@"reason"];
-        descriptionLabel.textAlignment = NSTextAlignmentCenter;
-        descriptionLabel.hidden = YES;
-        [gridCell addSubview:descriptionLabel];
-        
-        
-        gridCell.tag = i +32;
-        [gridCell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
-        [_gridView addSubview:gridCell];
-    } */
-}
+   }
 
 - (void)segmentedControlAction:(UISegmentedControl *)sender {
     if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"Live"])
@@ -236,10 +187,10 @@
         UILabel *descriptionLabel = [cell viewWithTag:5];
         descriptionLabel.text = _tubeStatus[indexPath.row][2];
     } else {
-        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,150)];
+        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,210)];
         descriptionLabel.tag = 5;
         descriptionLabel.numberOfLines = 0;
-        [descriptionLabel setFont:[UIFont systemFontOfSize:14]];
+        [descriptionLabel setFont:[UIFont systemFontOfSize:12]];
         descriptionLabel.textColor = [UIColor whiteColor];
         descriptionLabel.text = _tubeStatus[indexPath.row][2];
         descriptionLabel.textAlignment = NSTextAlignmentCenter;
