@@ -53,11 +53,34 @@
         for (int i = 0; i < _tubeStatus.count; i++) {
             NSString *lineName = _tubeStatus[i][0];
             for (int j = 0; j < tubeStatusData.count; j++){
-                if (tubeStatusData[j][0] == lineName) {
+                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
                     _tubeStatus[i][1] = tubeStatusData[j][1];
                     _tubeStatus[i][2] = tubeStatusData[j][2];
                     break;
                 }
+            }
+        }
+    }
+}
+
+- (void)getWeekendTubeStatus:(NSMutableArray *)tubeStatusData {
+    if (_tubeStatus == nil) {
+        _tubeStatus = tubeStatusData;
+    } else {
+        for (int i = 0; i < _tubeStatus.count; i++) {
+            BOOL lineFound = NO;
+            NSString *lineName = _tubeStatus[i][0];
+            for (int j = 0; j < tubeStatusData.count; j++){
+                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
+                    lineFound = YES;
+                    _tubeStatus[i][1] = tubeStatusData[j][1];
+                    _tubeStatus[i][2] = tubeStatusData[j][2];
+                    break;
+                }
+            }
+            if (lineFound == NO) {
+                _tubeStatus[i][1] = @"";
+                _tubeStatus[i][2] = @"";
             }
         }
     }
@@ -74,14 +97,14 @@
     [_tubeColours setObject:[UIColor colorWithRed:220/255.f green:36/255.f blue:31/255.f alpha:1.f] forKey:@"Central"];
     [_tubeColours setObject:[UIColor colorWithRed:255/255.f green:211/255.f blue:41/255.f alpha:1.f] forKey:@"Circle"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:125/255.f blue:50/255.f alpha:1.f] forKey:@"District"];
-    [_tubeColours setObject:[UIColor colorWithRed:244/255.f green:169/255.f blue:190/255.f alpha:1.f] forKey:@"Hammersmith & City"];
+    [_tubeColours setObject:[UIColor colorWithRed:244/255.f green:169/255.f blue:190/255.f alpha:1.f] forKey:@"H'smith & City"];
     [_tubeColours setObject:[UIColor colorWithRed:161/255.f green:165/255.f blue:167/255.f alpha:1.f] forKey:@"Jubilee"];
     [_tubeColours setObject:[UIColor colorWithRed:155/255.f green:0/255.f blue:88/255.f alpha:1.f] forKey:@"Metropolitan"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:0/255.f blue:0/255.f alpha:1.f] forKey:@"Northern"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:25/255.f blue:168/255.f alpha:1.f] forKey:@"Piccadilly"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:152/255.f blue:216/255.f alpha:1.f] forKey:@"Victoria"];
     [_tubeColours setObject:[UIColor colorWithRed:147/255.f green:206/255.f blue:186/255.f alpha:1.f] forKey:@"Waterloo & City"];
-    [_tubeColours setObject:[UIColor colorWithRed:239/255.f green:123/255.f blue:16/255.f alpha:1.f] forKey:@"London Overground"];
+    [_tubeColours setObject:[UIColor colorWithRed:239/255.f green:123/255.f blue:16/255.f alpha:1.f] forKey:@"Overground"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:175/255.f blue:173/255.f alpha:1.f] forKey:@"DLR"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:189/255.f blue:25/255.f alpha:1.f] forKey:@"Tram"];
     [_tubeColours setObject:[UIColor colorWithRed:0/255.f green:25/255.f blue:168/255.f alpha:1.f] forKey:@"TfL Rail"];
@@ -129,6 +152,8 @@
                             action:@selector(updateTubeStatus)
              forControlEvents:UIControlEventValueChanged];
     
+    //Anything below ios10 crashes here
+    //TODO: fix from here http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7/37865309#37865309
     _gridView.refreshControl = refreshControl;
     
    }
@@ -143,7 +168,7 @@
     } else {
         _currentState = @"Weekend";
         //fetch weekend tube status
-    _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
+        [self getWeekendTubeStatus:[_statusFetcher getWeekendTubeStatus]];
     }
     //update labels in correct order
     [_gridView reloadData];
@@ -304,7 +329,7 @@
     if ([_currentState isEqualToString:@"Live"]) {
         [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
     } else {
-        _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
+        [self getWeekendTubeStatus:[_statusFetcher getWeekendTubeStatus]];
     }
     [_gridView reloadData];
     //for each cell in grid, update labels.

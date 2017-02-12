@@ -38,6 +38,7 @@
     for (int i=0; i < jsonArray.count; i++){
         NSMutableArray *rowArray = [NSMutableArray arrayWithCapacity:3];
         [rowArray insertObject:[jsonArray[i] objectForKey:@"name"] atIndex:0];
+        [self checkForNames:rowArray];
         [rowArray insertObject:[[jsonArray[i] objectForKey:@"lineStatuses"][0] objectForKey:@"statusSeverityDescription"] atIndex:1];
         if ([[jsonArray[i] objectForKey:@"lineStatuses"][0] objectForKey:@"reason"] != nil)
         {
@@ -49,6 +50,14 @@
     }
     NSLog(@"%@", newArray);
     return newArray;
+}
+
+- (void)checkForNames:(NSMutableArray *)rowArray{
+    if ([rowArray[0] isEqualToString:@"London Overground"]){
+        rowArray[0] = @"Overground";
+    } else if ([rowArray[0] isEqualToString:@"Hammersmith & City"]){
+        rowArray[0] = @"H'smith & City";
+    }
 }
 
 - (NSMutableArray *)fetchTubeUpdate{
