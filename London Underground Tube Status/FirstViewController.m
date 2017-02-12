@@ -38,13 +38,30 @@
     
     [self assignTubeColours];
     _statusFetcher = [[StatusFetcher alloc] init];
-    _tubeStatus = [_statusFetcher getLiveTubeStatus];
+    [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
+    //_tubeStatus = [_statusFetcher getLiveTubeStatus];
     _currentState = @"Live";
     [self setUpToolbar];
     [self setUpGrid];
 
 }
 
+- (void)getTubeStatus:(NSMutableArray *)tubeStatusData {
+    if (_tubeStatus == nil) {
+        _tubeStatus = tubeStatusData;
+    } else {
+        for (int i = 0; i < _tubeStatus.count; i++) {
+            NSString *lineName = _tubeStatus[i][0];
+            for (int j = 0; j < tubeStatusData.count; j++){
+                if (tubeStatusData[j][0] == lineName) {
+                    _tubeStatus[i][1] = tubeStatusData[j][1];
+                    _tubeStatus[i][2] = tubeStatusData[j][2];
+                    break;
+                }
+            }
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -121,7 +138,7 @@
     {
         _currentState = @"Live";
         //fetch real time tube status
-        _tubeStatus  = [_statusFetcher getLiveTubeStatus];
+        [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
 
     } else {
         _currentState = @"Weekend";
@@ -145,6 +162,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
     //change the order of entries in the data source to match the new visual order of the cells.
+    
+    NSMutableArray *line = [_tubeStatus objectAtIndex:sourceIndexPath.row];
+    [_tubeStatus removeObjectAtIndex:sourceIndexPath.row];
+    [_tubeStatus insertObject:line atIndex:destinationIndexPath.row];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -281,7 +302,7 @@
 
 - (void)updateTubeStatus {
     if ([_currentState isEqualToString:@"Live"]) {
-        _tubeStatus  = [_statusFetcher getLiveTubeStatus];
+        [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
     } else {
         _tubeStatus  = [_statusFetcher getWeekendTubeStatus];
     }
