@@ -165,7 +165,7 @@
         UILabel *nameLabel = [cell viewWithTag:3];
         nameLabel.text = tubeName;
     } else {
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, cell.frame.size.width, 20)];
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, cell.frame.size.width, 20)];
         nameLabel.tag = 3;
         nameLabel.adjustsFontSizeToFitWidth = YES;
         [nameLabel setFont:[UIFont systemFontOfSize:14]];
@@ -179,7 +179,7 @@
         UILabel *statusLabel = [cell viewWithTag:4];
         statusLabel.text = _tubeStatus[indexPath.row][1];
     } else {
-        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, cell.frame.size.width,20)];
+        UILabel *statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (cell.frame.size.height)-30, cell.frame.size.width,20)];
         statusLabel.adjustsFontSizeToFitWidth = YES;
         statusLabel.tag = 4;
         [statusLabel setFont:[UIFont systemFontOfSize:14]];
@@ -193,15 +193,36 @@
         UILabel *descriptionLabel = [cell viewWithTag:5];
         descriptionLabel.text = _tubeStatus[indexPath.row][2];
     } else {
-        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,210)];
+        UILabel *descriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 170, _screenWidth,280)];
         descriptionLabel.tag = 5;
         descriptionLabel.numberOfLines = 0;
-        [descriptionLabel setFont:[UIFont systemFontOfSize:12]];
+        [descriptionLabel setFont:[UIFont systemFontOfSize:16]];
         descriptionLabel.textColor = [UIColor whiteColor];
         descriptionLabel.text = _tubeStatus[indexPath.row][2];
         descriptionLabel.textAlignment = NSTextAlignmentCenter;
         descriptionLabel.hidden = YES;
         [cell addSubview:descriptionLabel];
+    }
+    
+    
+    if ([cell viewWithTag:6] != nil) {
+        UIImageView *serviceImage = [cell viewWithTag:6];
+        if ([_tubeStatus[indexPath.row][1] isEqualToString:@"Good Service"]){
+            serviceImage.image = [UIImage imageNamed:@"Graphics/goodservice.png"];
+        } else {
+            serviceImage.image = [UIImage imageNamed:@"Graphics/warning.png"];
+        }
+    } else {
+        UIImageView *serviceImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, (cell.frame.size.width/3),40)];
+        serviceImage.tag = 6;
+        serviceImage.contentMode = UIViewContentModeScaleAspectFit;
+        if ([_tubeStatus[indexPath.row][1] isEqualToString:@"Good Service"]){
+            serviceImage.image = [UIImage imageNamed:@"Graphics/goodservice.png"];
+        } else {
+            serviceImage.image = [UIImage imageNamed:@"Graphics/warning.png"];
+        }
+        [cell addSubview:serviceImage];
+        serviceImage.center = CGPointMake(cell.frame.size.width/2, (cell.frame.size.height/2)-5);
     }
 
     [cell addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnCellView:)]];
@@ -248,6 +269,8 @@
     
     [expandedView addSubview:[self copyLabel:[senderView viewWithTag:5]]];
     
+    [expandedView addSubview:[self copyImage:[senderView viewWithTag:6]]];
+    
     [self.view addSubview:expandedView];
     [expandedView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickedOnExpandedView:)]];
 }
@@ -258,13 +281,21 @@
 }
 
 -(UILabel *)copyLabel:(UILabel *)oldLabel {
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x+10, oldLabel.frame.origin.y, _screenWidth-20, oldLabel.frame.size.height)];
-    newLabel.font = oldLabel.font;
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x+10, oldLabel.frame.origin.y+50, _screenWidth-20, oldLabel.frame.size.height)];
+    newLabel.font = [UIFont systemFontOfSize:18];
     newLabel.text = oldLabel.text;
     newLabel.numberOfLines = oldLabel.numberOfLines;
     newLabel.textColor = oldLabel.textColor;
     newLabel.textAlignment = oldLabel.textAlignment;
     newLabel.hidden = NO;
+    return newLabel;
+}
+
+-(UIImageView *)copyImage:(UIImageView *)oldLabel {
+    UIImageView *newLabel = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, oldLabel.frame.size.width, oldLabel.frame.size.height)];
+    newLabel.contentMode = UIViewContentModeScaleAspectFit;
+    newLabel.image = oldLabel.image;
+    newLabel.center = CGPointMake(_screenWidth/2, oldLabel.frame.origin.y+70);
     return newLabel;
 }
 

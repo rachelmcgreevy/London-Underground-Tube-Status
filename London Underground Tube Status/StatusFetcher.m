@@ -62,6 +62,7 @@
 
 - (NSMutableArray *)fetchTubeUpdate{
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.tfl.gov.uk/Line/Mode/tube%%2Cdlr%%2Coverground%%2Ctram%%2Ctflrail%%2Ccable-car/Status?detail=false"]];
+    //need to check if feed is empty/broken
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:NULL];
     NSLog(@"%@", json);
@@ -74,6 +75,8 @@
 }
 
 - (NSMutableArray *)fetchWeekendTubeUpdate{
+    _tflAppID = @"312884b8";
+    _tflAppKey = @"874b1c0f7b3986f47a809ccc5406a840";
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://data.tfl.gov.uk/tfl/syndication/feeds/TubeThisWeekend_v1.xml?app_id=%@&app_key=%@", self.tflAppID, self.tflAppKey]];
     
     NSXMLParser *parser = [[NSXMLParser alloc]initWithContentsOfURL:url];

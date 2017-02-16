@@ -19,6 +19,10 @@
 		D001FF451E3247540023DF29 /* London_Underground_Tube_StatusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF441E3247540023DF29 /* London_Underground_Tube_StatusTests.m */; };
 		D001FF501E3247540023DF29 /* London_Underground_Tube_StatusUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF4F1E3247540023DF29 /* London_Underground_Tube_StatusUITests.m */; };
 		D001FF621E3406CA0023DF29 /* StatusFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF611E3406CA0023DF29 /* StatusFetcher.m */; };
+		D0080CDA1E535D0700E60197 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0080CD91E535D0700E60197 /* NotificationCenter.framework */; };
+		D0080CDE1E535D0700E60197 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0080CDD1E535D0700E60197 /* TodayViewController.m */; };
+		D0080CE11E535D0700E60197 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0080CDF1E535D0700E60197 /* MainInterface.storyboard */; };
+		D0080CE51E535D0700E60197 /* London Underground Tube Status Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D0080CD71E535D0700E60197 /* London Underground Tube Status Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +40,28 @@
 			remoteGlobalIDString = D001FF231E3247540023DF29;
 			remoteInfo = "London Underground Tube Status";
 		};
+		D0080CE31E535D0700E60197 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D001FF1C1E3247540023DF29 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0080CD61E535D0700E60197;
+			remoteInfo = "London Underground Tube Status Widget";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D0080CE91E535D0700E60197 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D0080CE51E535D0700E60197 /* London Underground Tube Status Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		88CC556D1E50FF0F0046E155 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -62,6 +87,12 @@
 		D001FF511E3247540023DF29 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D001FF601E3406B10023DF29 /* StatusFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusFetcher.h; sourceTree = "<group>"; };
 		D001FF611E3406CA0023DF29 /* StatusFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusFetcher.m; sourceTree = "<group>"; };
+		D0080CD71E535D0700E60197 /* London Underground Tube Status Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "London Underground Tube Status Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0080CD91E535D0700E60197 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		D0080CDC1E535D0700E60197 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		D0080CDD1E535D0700E60197 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		D0080CE01E535D0700E60197 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		D0080CE21E535D0700E60197 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +117,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D0080CD41E535D0700E60197 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0080CDA1E535D0700E60197 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -95,6 +134,8 @@
 				D001FF261E3247540023DF29 /* London Underground Tube Status */,
 				D001FF431E3247540023DF29 /* London Underground Tube StatusTests */,
 				D001FF4E1E3247540023DF29 /* London Underground Tube StatusUITests */,
+				D0080CDB1E535D0700E60197 /* London Underground Tube Status Widget */,
+				D0080CD81E535D0700E60197 /* Frameworks */,
 				D001FF251E3247540023DF29 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +146,7 @@
 				D001FF241E3247540023DF29 /* London Underground Tube Status.app */,
 				D001FF401E3247540023DF29 /* London Underground Tube StatusTests.xctest */,
 				D001FF4B1E3247540023DF29 /* London Underground Tube StatusUITests.xctest */,
+				D0080CD71E535D0700E60197 /* London Underground Tube Status Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,6 +200,25 @@
 			path = "London Underground Tube StatusUITests";
 			sourceTree = "<group>";
 		};
+		D0080CD81E535D0700E60197 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0080CD91E535D0700E60197 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0080CDB1E535D0700E60197 /* London Underground Tube Status Widget */ = {
+			isa = PBXGroup;
+			children = (
+				D0080CDC1E535D0700E60197 /* TodayViewController.h */,
+				D0080CDD1E535D0700E60197 /* TodayViewController.m */,
+				D0080CDF1E535D0700E60197 /* MainInterface.storyboard */,
+				D0080CE21E535D0700E60197 /* Info.plist */,
+			);
+			path = "London Underground Tube Status Widget";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,10 +229,12 @@
 				D001FF201E3247540023DF29 /* Sources */,
 				D001FF211E3247540023DF29 /* Frameworks */,
 				D001FF221E3247540023DF29 /* Resources */,
+				D0080CE91E535D0700E60197 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D0080CE41E535D0700E60197 /* PBXTargetDependency */,
 			);
 			name = "London Underground Tube Status";
 			productName = "London Underground Tube Status";
@@ -214,6 +277,23 @@
 			productReference = D001FF4B1E3247540023DF29 /* London Underground Tube StatusUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		D0080CD61E535D0700E60197 /* London Underground Tube Status Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0080CE81E535D0700E60197 /* Build configuration list for PBXNativeTarget "London Underground Tube Status Widget" */;
+			buildPhases = (
+				D0080CD31E535D0700E60197 /* Sources */,
+				D0080CD41E535D0700E60197 /* Frameworks */,
+				D0080CD51E535D0700E60197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "London Underground Tube Status Widget";
+			productName = "London Underground Tube Status Widget";
+			productReference = D0080CD71E535D0700E60197 /* London Underground Tube Status Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -240,6 +320,11 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = D001FF231E3247540023DF29;
 					};
+					D0080CD61E535D0700E60197 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = B6C84G57E3;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = D001FF1F1E3247540023DF29 /* Build configuration list for PBXProject "London Underground Tube Status" */;
@@ -258,6 +343,7 @@
 				D001FF231E3247540023DF29 /* London Underground Tube Status */,
 				D001FF3F1E3247540023DF29 /* London Underground Tube StatusTests */,
 				D001FF4A1E3247540023DF29 /* London Underground Tube StatusUITests */,
+				D0080CD61E535D0700E60197 /* London Underground Tube Status Widget */,
 			);
 		};
 /* End PBXProject section */
@@ -285,6 +371,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0080CD51E535D0700E60197 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0080CE11E535D0700E60197 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +414,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D0080CD31E535D0700E60197 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0080CDE1E535D0700E60197 /* TodayViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -332,6 +434,11 @@
 			isa = PBXTargetDependency;
 			target = D001FF231E3247540023DF29 /* London Underground Tube Status */;
 			targetProxy = D001FF4C1E3247540023DF29 /* PBXContainerItemProxy */;
+		};
+		D0080CE41E535D0700E60197 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0080CD61E535D0700E60197 /* London Underground Tube Status Widget */;
+			targetProxy = D0080CE31E535D0700E60197 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -350,6 +457,14 @@
 				D001FF391E3247540023DF29 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D0080CDF1E535D0700E60197 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0080CE01E535D0700E60197 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -525,6 +640,30 @@
 			};
 			name = Release;
 		};
+		D0080CE61E535D0700E60197 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = B6C84G57E3;
+				INFOPLIST_FILE = "London Underground Tube Status Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-Status.London-Underground-Tube-Status-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D0080CE71E535D0700E60197 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = B6C84G57E3;
+				INFOPLIST_FILE = "London Underground Tube Status Widget/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Rachel-McGreevy.London-Underground-Tube-Status.London-Underground-Tube-Status-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -563,6 +702,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D0080CE81E535D0700E60197 /* Build configuration list for PBXNativeTarget "London Underground Tube Status Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0080CE61E535D0700E60197 /* Debug */,
+				D0080CE71E535D0700E60197 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
