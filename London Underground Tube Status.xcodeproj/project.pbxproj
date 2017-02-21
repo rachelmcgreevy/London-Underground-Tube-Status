@@ -23,6 +23,7 @@
 		D0080CDE1E535D0700E60197 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0080CDD1E535D0700E60197 /* TodayViewController.m */; };
 		D0080CE11E535D0700E60197 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0080CDF1E535D0700E60197 /* MainInterface.storyboard */; };
 		D0080CE51E535D0700E60197 /* London Underground Tube Status Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D0080CD71E535D0700E60197 /* London Underground Tube Status Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D0080CEA1E5C365600E60197 /* StatusFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF611E3406CA0023DF29 /* StatusFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -418,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0080CEA1E5C365600E60197 /* StatusFetcher.m in Sources */,
 				D0080CDE1E535D0700E60197 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -710,6 +712,7 @@
 				D0080CE71E535D0700E60197 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

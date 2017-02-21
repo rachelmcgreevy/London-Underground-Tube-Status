@@ -15,7 +15,6 @@
 @property CGFloat screenHeight;
 @property CGPoint cellOrigin;
 @property (strong, nonatomic) NSMutableDictionary *tubeColours;
-//@property (strong, nonatomic) UIScrollView *gridView;
 @property (strong, nonatomic) UICollectionView *gridView;
 @property (strong, nonatomic) NSMutableArray *tubeStatus;
 @property BOOL isExpanded;
