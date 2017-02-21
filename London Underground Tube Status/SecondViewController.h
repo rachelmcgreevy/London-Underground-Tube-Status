@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController <UIScrollViewDelegate>
+@interface SecondViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
 
 
 @end
