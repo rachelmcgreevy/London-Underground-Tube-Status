@@ -263,11 +263,11 @@
     UIView *expandedView = [[UIView alloc] initWithFrame:CGRectMake(0, 60, _screenWidth, _screenHeight)];
     expandedView.backgroundColor = senderView.backgroundColor;
     
-    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:3] withFontSize:24 withVerticalPosition:50.f]];
+    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:3] withFontSize:22 withVerticalPosition:50.f]];
     
-    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:4] withFontSize:18 withVerticalPosition:120.f]];
+    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:4] withFontSize:18 withVerticalPosition:160.f]];
     
-    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:5] withFontSize:16 withVerticalPosition:180.f]];
+    [expandedView addSubview:[self copyLabel:[senderView viewWithTag:5] withFontSize:16 withVerticalPosition:200.f]];
     
     [expandedView addSubview:[self copyImage:[senderView viewWithTag:6]]];
     
@@ -281,7 +281,7 @@
 }
 
 -(UILabel *)copyLabel:(UILabel *)oldLabel withFontSize:(CGFloat)fontsize withVerticalPosition:(CGFloat)position {
-    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x+10, position, _screenWidth-20, oldLabel.frame.size.height)];
+    UILabel *newLabel = [[UILabel alloc] initWithFrame:CGRectMake(oldLabel.frame.origin.x+10, position, _screenWidth-20, oldLabel.frame.size.height+10)];
     newLabel.font = [UIFont systemFontOfSize:fontsize];
     newLabel.text = oldLabel.text;
     newLabel.numberOfLines = oldLabel.numberOfLines;
@@ -295,7 +295,7 @@
     UIImageView *newLabel = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, oldLabel.frame.size.width, oldLabel.frame.size.height)];
     newLabel.contentMode = UIViewContentModeScaleAspectFit;
     newLabel.image = oldLabel.image;
-    newLabel.center = CGPointMake(_screenWidth/2, oldLabel.frame.origin.y+70);
+    newLabel.center = CGPointMake(_screenWidth/2, oldLabel.frame.origin.y+80);
     return newLabel;
 }
 

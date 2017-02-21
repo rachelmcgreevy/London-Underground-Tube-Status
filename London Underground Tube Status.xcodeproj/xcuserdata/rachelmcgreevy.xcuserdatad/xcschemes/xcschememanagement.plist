@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>London Underground Tube Status Widget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>London Underground Tube Status.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>D001FF4A1E3247540023DF29</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D0080CD61E535D0700E60197</key>
 		<dict>
 			<key>primary</key>
 			<true/>
