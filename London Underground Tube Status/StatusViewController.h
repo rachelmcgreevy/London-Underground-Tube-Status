@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  StatusViewController.h
 //  London Underground Tube Status
 //
 //  Created by Rachel McGreevy on 20/01/2017.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
-
-
+@interface StatusViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 @end
 

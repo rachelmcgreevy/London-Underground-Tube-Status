@@ -1,15 +1,15 @@
 //
-//  FirstViewController.m
+//  StatusViewController.m
 //  London Underground Tube Status
 //
 //  Created by Rachel McGreevy on 20/01/2017.
 //  Copyright © 2017 Rachel McGreevy. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "StatusViewController.h"
 #import "StatusFetcher.h"
 
-@interface FirstViewController ()
+@interface StatusViewController ()
 
 @property CGFloat screenWidth;
 @property CGFloat screenHeight;
@@ -24,7 +24,7 @@
 
 @end
 
-@implementation FirstViewController
+@implementation StatusViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -127,7 +127,7 @@
     } else {
         _currentState = @"Weekend";
         //fetch weekend tube status
-        [self getWeekendTubeStatus:[_statusFetcher getWeekendTubeStatus]];
+        [self getTubeStatus:[_statusFetcher getWeekendTubeStatus]];
     }
     //update labels in correct order
     [_gridView reloadData];
@@ -167,7 +167,7 @@
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, cell.frame.size.width, 20)];
         nameLabel.tag = 3;
         nameLabel.adjustsFontSizeToFitWidth = YES;
-        [nameLabel setFont:[UIFont systemFontOfSize:14]];
+        [nameLabel setFont:[UIFont fontWithName:@"LondonTube-Regular" size:14]];
         nameLabel.textColor = [UIColor whiteColor];
         nameLabel.text = tubeName;
         nameLabel.textAlignment = NSTextAlignmentCenter;
@@ -208,6 +208,8 @@
         UIImageView *serviceImage = [cell viewWithTag:6];
         if ([_tubeStatus[indexPath.row][1] isEqualToString:@"Good Service"]){
             serviceImage.image = [UIImage imageNamed:@"Graphics/goodservice.png"];
+        } else if ([_tubeStatus[indexPath.row][1] isEqualToString:@"Unavailable"]) {
+            serviceImage.image = [UIImage imageNamed:@"Graphics/unavailable.png"];
         } else {
             serviceImage.image = [UIImage imageNamed:@"Graphics/warning.png"];
         }
@@ -319,7 +321,7 @@
     if ([_currentState isEqualToString:@"Live"]) {
         [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
     } else {
-        [self getWeekendTubeStatus:[_statusFetcher getWeekendTubeStatus]];
+        [self getTubeStatus:[_statusFetcher getWeekendTubeStatus]];
     }
     [_gridView reloadData];
     //for each cell in grid, update labels.
@@ -329,23 +331,6 @@
 #pragma get tube status information in correct order
 
 - (void)getTubeStatus:(NSMutableArray *)tubeStatusData {
-    if (_tubeStatus == nil) {
-        _tubeStatus = tubeStatusData;
-    } else {
-        for (int i = 0; i < _tubeStatus.count; i++) {
-            NSString *lineName = _tubeStatus[i][0];
-            for (int j = 0; j < tubeStatusData.count; j++){
-                if ([tubeStatusData[j][0] isEqualToString:lineName]) {
-                    _tubeStatus[i][1] = tubeStatusData[j][1];
-                    _tubeStatus[i][2] = tubeStatusData[j][2];
-                    break;
-                }
-            }
-        }
-    }
-}
-
-- (void)getWeekendTubeStatus:(NSMutableArray *)tubeStatusData {
     if (_tubeStatus == nil) {
         _tubeStatus = tubeStatusData;
     } else {
@@ -361,7 +346,7 @@
                 }
             }
             if (lineFound == NO) {
-                _tubeStatus[i][1] = @"";
+                _tubeStatus[i][1] = @"Unavailable";
                 _tubeStatus[i][2] = @"";
             }
         }

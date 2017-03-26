@@ -1,20 +1,20 @@
 //
-//  SecondViewController.m
+//  MapViewController.m
 //  London Underground Tube Status
 //
 //  Created by Rachel McGreevy on 20/01/2017.
 //  Copyright © 2017 Rachel McGreevy. All rights reserved.
 //
 
-#import "SecondViewController.h"
+#import "MapViewController.h"
 
-@interface SecondViewController ()
+@interface MapViewController ()
 
 @property (nonatomic, strong) UIImageView *backgroundImage;
 
 @end
 
-@implementation SecondViewController
+@implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

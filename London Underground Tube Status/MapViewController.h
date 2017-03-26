@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  MapViewController.h
 //  London Underground Tube Status
 //
 //  Created by Rachel McGreevy on 20/01/2017.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MapViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
+
+
 @end
 
