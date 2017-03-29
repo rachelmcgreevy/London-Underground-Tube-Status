@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		880323271E8867B8007E719F /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 880323261E8867B8007E719F /* Resources */; };
-		880323281E8867FD007E719F /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 880323261E8867B8007E719F /* Resources */; };
 		88CC556F1E50FF330046E155 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CC556E1E50FF330046E155 /* SettingsViewController.m */; };
 		88CC55711E5101710046E155 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 88CC55701E5101710046E155 /* Graphics */; };
 		D001FF291E3247540023DF29 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D001FF281E3247540023DF29 /* main.m */; };
@@ -67,7 +65,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		880323261E8867B8007E719F /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		88CC556D1E50FF0F0046E155 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		88CC556E1E50FF330046E155 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		88CC55701E5101710046E155 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
@@ -170,7 +167,6 @@
 				88CC556E1E50FF330046E155 /* SettingsViewController.m */,
 				D001FF331E3247540023DF29 /* Main.storyboard */,
 				D001FF361E3247540023DF29 /* Assets.xcassets */,
-				880323261E8867B8007E719F /* Resources */,
 				88CC55701E5101710046E155 /* Graphics */,
 				D001FF381E3247540023DF29 /* LaunchScreen.storyboard */,
 				D001FF3B1E3247540023DF29 /* Info.plist */,
@@ -362,7 +358,6 @@
 				88CC55711E5101710046E155 /* Graphics in Resources */,
 				D001FF371E3247540023DF29 /* Assets.xcassets in Resources */,
 				D001FF351E3247540023DF29 /* Main.storyboard in Resources */,
-				880323271E8867B8007E719F /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +365,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				880323281E8867FD007E719F /* Resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
