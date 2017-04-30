@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
-@interface MapViewController : UIViewController <UIWebViewDelegate, UIScrollViewDelegate>
+@interface MapViewController : UIViewController <UIScrollViewDelegate, CALayerDelegate>
 
 
 @end

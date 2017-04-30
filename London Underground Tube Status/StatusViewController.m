@@ -14,10 +14,10 @@
 @property CGFloat screenWidth;
 @property CGFloat screenHeight;
 @property CGPoint cellOrigin;
+@property BOOL isExpanded;
 @property (strong, nonatomic) NSMutableDictionary *tubeColours;
 @property (strong, nonatomic) UICollectionView *gridView;
 @property (strong, nonatomic) NSMutableArray *tubeStatus;
-@property BOOL isExpanded;
 @property (strong, nonatomic) NSIndexPath *expandedCellIndexPath;
 @property (strong, nonatomic) StatusFetcher *statusFetcher;
 @property (strong, nonatomic) NSString *currentState;
@@ -38,7 +38,6 @@
     [self assignTubeColours];
     _statusFetcher = [[StatusFetcher alloc] init];
     [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
-    //_tubeStatus = [_statusFetcher getLiveTubeStatus];
     _currentState = @"Live";
     [self setUpToolbar];
     [self setUpGrid];
@@ -114,19 +113,16 @@
     //Anything below ios10 crashes here
     //TODO: fix from here http://stackoverflow.com/questions/19483511/uirefreshcontrol-with-uicollectionview-in-ios7/37865309#37865309
     _gridView.refreshControl = refreshControl;
-    
-   }
+}
 
 - (void)segmentedControlAction:(UISegmentedControl *)sender {
     if ([[sender titleForSegmentAtIndex:sender.selectedSegmentIndex] isEqualToString:@"Live"])
     {
         _currentState = @"Live";
-        //fetch real time tube status
         [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
 
     } else {
         _currentState = @"Weekend";
-        //fetch weekend tube status
         [self getTubeStatus:[_statusFetcher getWeekendTubeStatus]];
     }
     //update labels in correct order
@@ -303,21 +299,18 @@
 - (CAAnimation*)getShakeAnimation
 {
     CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    
     CGFloat wobbleAngle = 0.06f;
-    
     NSValue* valLeft = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(wobbleAngle, 0.0f, 0.0f, 1.0f)];
     NSValue* valRight = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-wobbleAngle, 0.0f, 0.0f, 1.0f)];
     animation.values = [NSArray arrayWithObjects:valLeft, valRight, nil];
-    
     animation.autoreverses = YES;
     animation.duration = 0.125;
     animation.repeatCount = HUGE_VALF;
-    
     return animation;
 }
 
 - (void)updateTubeStatus {
+    _gridView.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing..."];
     if ([_currentState isEqualToString:@"Live"]) {
         [self getTubeStatus:[_statusFetcher getLiveTubeStatus]];
     } else {
@@ -325,6 +318,10 @@
     }
     [_gridView reloadData];
     //for each cell in grid, update labels.
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm a"];
+    NSString *lastUpdated = [NSString stringWithFormat:@"Last updated on %@", [formatter stringFromDate:[NSDate date]]];
+    _gridView.refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
     [_gridView.refreshControl endRefreshing];
 }
 
